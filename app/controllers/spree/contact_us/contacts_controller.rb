@@ -8,7 +8,10 @@ class Spree::ContactUs::ContactsController < Spree::StoreController
       if Spree::ContactUs::Config.contact_tracking_message.present?
         flash[:contact_tracking] = Spree::ContactUs::Config.contact_tracking_message
       end
-      redirect_to(spree.root_path, :notice => Spree.t('contact_us.notices.success'))
+      respond_to do |format|
+        format.html { redirect_to(spree.root_path, :notice => Spree.t('contact_us.notices.success')) }
+        format.js {}
+      end
     else
       render :new
     end
